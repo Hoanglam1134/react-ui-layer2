@@ -7,15 +7,29 @@ function BtnDebug({ id, name, url, params, setLoadingSpin, setState }) {
   function handleClick() {
     setLoadingSpin(true);
 
-    axios.get('http://localhost:8081/' + url, { params }).then(response => {
-      setState(response.data);
-    })
+    if (params) {
+      console.log('call post method')
+      axios.post('http://localhost:8081/' + url, params).then(response => {
+        console.log(response.data);
+      })
+        .catch(error => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoadingSpin(false);
+        });
+      return;
+    } else {
+      axios.get('http://localhost:8081/' + url).then(response => {
+        setState(response.data);
+      })
       .catch(error => {
         console.error(error);
       })
       .finally(() => {
         setLoadingSpin(false);
       });
+    }
   }
   return (
     <button
@@ -77,9 +91,11 @@ function App() {
   const [loading, setLoading] = useState(false); // Add loading state
 
   const params = {
-    from: fromPk,
-    to: toPk,
-    amount: amount
+    transaction: {
+      from: fromPk,
+      to: toPk,
+      amount: amount
+    }
   };
 
   return (
@@ -101,9 +117,9 @@ function App() {
       <div id="home">
         <h1>Home</h1>
         <p>Layer 2 Zk-Rollups</p>
-        <BtnDebug id="btnDebugDepositReg" name="Debug Deposit Register" url="debug/deposit-register" params={params} setLoadingSpin={setLoading} />
-        <BtnDebug id="btnDebugDepositEx" name="Debug Deposit Existence" url="debug/deposit-existence" params={params} setLoadingSpin={setLoading} />
-        <BtnDebug id="btnDebugDepositTrans" name="Debug Deposit Transfer" url="debug/transfer" params={params} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugDeposit" name="Debug Deposit" url="debug/deposit" params={params} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugTransfer" name="Debug Transfer" url="debug/transfer" params={params} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugWithdraw" name="Debug Withdraw" url="debug/withdraw" params={params} setLoadingSpin={setLoading} />
         <div class="container">
           <FormRender name="From Account" type="text" value={fromPk} setState={setFrom} />
           <FormRender name="Amount" type="number" value={amount} setState={setAmount} />

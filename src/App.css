@@ -16,6 +16,7 @@ html {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 
 #nav, .subnav {
@@ -73,7 +74,7 @@ html {
   color: #fff;
 }
 
-#btnDebugDepositReg, #btnDebugDepositEx, #btnDebugDepositTrans, #show-accounts {
+#btnDebugDeposit, #btnDebugTransfer, #btnDebugWithdraw, #show-accounts {
   background-color: #222;
   border-radius: 4px;
   border-style: none;
