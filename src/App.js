@@ -51,17 +51,17 @@ function TableAccountsRender({ state }) {
     <table id="accountTable">
       <thead>
         <tr>
-          <th>ID</th>
           <th>PublicKey</th>
-          <th>Balance</th>
+          <th>L2 - Balance</th>
+          <th>L1 - Balance</th>
         </tr>
       </thead>
       <tbody>
         {state.accounts.map((item) => (
           <tr key={item.id}>
-            <td>{item.id === "0" ? "0" : item.id}</td>
             <td>{item.publicKey}</td>
             <td>{item.balance}</td>
+            <td>{item.l1_balance}</td>
           </tr>
         ))}
       </tbody>
@@ -97,6 +97,9 @@ function App() {
       amount: amount
     }
   };
+  const paramsFullDebug = {
+    amount: amount,
+  };
 
   return (
     <div className="App">
@@ -117,9 +120,19 @@ function App() {
       <div id="home">
         <h1>Home</h1>
         <p>Layer 2 Zk-Rollups</p>
+        <div class="container">
         <BtnDebug id="btnDebugDeposit" name="Debug Deposit" url="debug/deposit" params={params} setLoadingSpin={setLoading} />
         <BtnDebug id="btnDebugTransfer" name="Debug Transfer" url="debug/transfer" params={params} setLoadingSpin={setLoading} />
         <BtnDebug id="btnDebugWithdraw" name="Debug Withdraw" url="debug/withdraw" params={params} setLoadingSpin={setLoading} />
+        </div>
+        <div class="container">
+        <BtnDebug id="btnDebugFullRegister" name="Debug Full Register" url="debug/full-register" params={paramsFullDebug} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugFullTransfer" name="Debug Full Transfer" url="debug/full-transfer" params={paramsFullDebug} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugFullWithdraw" name="Debug Full Withdraw" url="debug/full-withdraw" params={paramsFullDebug} setLoadingSpin={setLoading} />
+        </div>
+        <div class="container">
+        <BtnDebug id="btnDebugFullExistence" name="Debug Full Existence" url="debug/full-existence" params={paramsFullDebug} setLoadingSpin={setLoading} />
+        </div>
         <div class="container">
           <FormRender name="From Account" type="text" value={fromPk} setState={setFrom} />
           <FormRender name="Amount" type="number" value={amount} setState={setAmount} />
