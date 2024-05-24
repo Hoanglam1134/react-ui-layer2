@@ -74,7 +74,7 @@ html {
   color: #fff;
 }
 
-#btnDebugDeposit, #btnDebugTransfer, #btnDebugWithdraw, #show-accounts, #btnDebugFullRegister, #btnDebugFullTransfer, #btnDebugFullWithdraw, #btnDebugFullExistence {
+#btnDebugDeposit, #btnDebugTransfer, #btnDebugWithdraw, #show-accounts, #btnDebugFullDeposit, #btnDebugFullTransfer, #btnDebugFullWithdraw {
   background-color: #222;
   border-radius: 4px;
   border-style: none;

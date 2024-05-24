@@ -44,14 +44,14 @@ function BtnDebug({ id, name, url, params, setLoadingSpin, setState }) {
 function TableAccountsRender({ state }) {
   if (state == null) {
     return (
-      <table id="accountTable" />
+    <table id="accountTable" />
     );
   }
   return (
     <table id="accountTable">
       <thead>
         <tr>
-          <th>PublicKey</th>
+          <th>Address</th>
           <th>L2 - Balance</th>
           <th>L1 - Balance</th>
         </tr>
@@ -59,7 +59,7 @@ function TableAccountsRender({ state }) {
       <tbody>
         {state.accounts.map((item) => (
           <tr key={item.id}>
-            <td>{item.publicKey}</td>
+            <td>{item.address}</td>
             <td>{item.balance}</td>
             <td>{item.l1_balance}</td>
           </tr>
@@ -98,6 +98,7 @@ function App() {
     }
   };
   const paramsFullDebug = {
+    start_id: fromPk,
     amount: amount,
   };
 
@@ -126,12 +127,9 @@ function App() {
         <BtnDebug id="btnDebugWithdraw" name="Debug Withdraw" url="debug/withdraw" params={params} setLoadingSpin={setLoading} />
         </div>
         <div class="container">
-        <BtnDebug id="btnDebugFullRegister" name="Debug Full Register" url="debug/full-register" params={paramsFullDebug} setLoadingSpin={setLoading} />
+        <BtnDebug id="btnDebugFullDeposit" name="Debug Full Deposit" url="debug/full-deposit" params={paramsFullDebug} setLoadingSpin={setLoading} />
         <BtnDebug id="btnDebugFullTransfer" name="Debug Full Transfer" url="debug/full-transfer" params={paramsFullDebug} setLoadingSpin={setLoading} />
         <BtnDebug id="btnDebugFullWithdraw" name="Debug Full Withdraw" url="debug/full-withdraw" params={paramsFullDebug} setLoadingSpin={setLoading} />
-        </div>
-        <div class="container">
-        <BtnDebug id="btnDebugFullExistence" name="Debug Full Existence" url="debug/full-existence" params={paramsFullDebug} setLoadingSpin={setLoading} />
         </div>
         <div class="container">
           <FormRender name="From Account" type="text" value={fromPk} setState={setFrom} />
@@ -143,6 +141,8 @@ function App() {
         <h1>Accounts</h1>
         <p>List Accounts in Tree</p>
         <BtnDebug id="show-accounts" name="Show Accounts" url="status" setState={setAccounts} setLoadingSpin={setLoading} />
+        <p><br></br></p>
+        <h3>Contract Balance: {accounts != null ? accounts.contract_balance : 0}</h3>
         {loading ? (
           <RingLoader color="#123abc" size={50} /> // Display a loading spinner while waiting for the request to complete
         ) : (
