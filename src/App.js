@@ -98,7 +98,7 @@ function App() {
     }
   };
   const paramsFullDebug = {
-    start_id: fromPk,
+    start_id: 3,
     amount: amount,
   };
 
